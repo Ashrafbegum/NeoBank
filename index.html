@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bank Dashboard</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+/>
+
+</head>
+<body>
+
+<div class="dashboard">
+
+    <!-- Main -->
+
+    <main class="content">
+
+        <!-- Navbar -->
+
+        <header class="navbar">
+
+            <div>
+                <h2>Hello, Jordan 👋</h2>
+                <p>Welcome back to your financial command center.</p>
+            </div>
+
+            <div class="nav-right">
+
+                <input
+                type="text"
+                placeholder="Search anything..."
+                class="search">
+
+                <button class="logout-btn">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    Logout
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <!-- Cards -->
+
+        <section class="cards">
+
+            <div class="card">
+                <h4>Current Balance</h4>
+                <h2 id="balance">$12,450.80</h2>
+            </div>
+
+            <div class="card">
+                <h4>Total Income</h4>
+                <h2 id="income">$8,210.00</h2>
+            </div>
+
+            <div class="card">
+                <h4>Total Expenses</h4>
+                <h2 id="expense">$4,120.30</h2>
+            </div>
+
+            <div class="card">
+                <h4>Total Savings</h4>
+                <h2 id="saving">$1,890.50</h2>
+            </div>
+
+        </section>
+
+
+        <!-- Action Buttons -->
+
+        <section class="actions">
+
+            <button>Deposit</button>
+            <button>Withdraw</button>
+            <button>Transfer</button>
+            <button>Add Transaction</button>
+
+        </section>
+
+
+        <!-- Filters -->
+
+        <section class="filters">
+
+            <input
+            type="text"
+            placeholder="Search transactions">
+
+            <select>
+                <option>All</option>
+                <option>Income</option>
+                <option>Expense</option>
+                <option>Transfer</option>
+            </select>
+
+            <select>
+                <option>Newest First</option>
+                <option>Oldest First</option>
+            </select>
+
+        </section>
+
+
+        <!-- Table -->
+
+        <section class="table-container">
+
+            <table>
+
+                <thead>
+
+                <tr>
+
+                    <th>Title</th>
+                    <th>Category</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Action</th>
+
+                </tr>
+
+                </thead>
+
+                <tbody id="transactionTable">
+
+                <!-- Dynamic Data -->
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+
+        <!-- Charts -->
+
+        <section class="charts">
+
+            <div class="chart-card">
+
+                <h3>Spending Distribution</h3>
+
+                <div class="chart-placeholder">
+                    Doughnut Chart
+                </div>
+
+            </div>
+
+            <div class="chart-card">
+
+                <h3>Income vs Expense</h3>
+
+                <div class="chart-placeholder">
+                    Bar Chart
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Bottom -->
+
+        <section class="bottom-grid">
+
+            <div class="box">
+
+                <h3>Top Categories</h3>
+
+                <div id="categories">
+
+                </div>
+
+            </div>
+
+            <div class="box">
+
+                <h3>Recent Activity</h3>
+
+                <ul id="activity">
+
+                </ul>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
