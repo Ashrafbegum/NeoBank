@@ -1,0 +1,250 @@
+/* Overlay */
+
+.modal{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.45);
+
+    display:none;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:20px;
+
+    z-index:1000;
+
+}
+
+/* Show Modal */
+
+.modal.show{
+
+    display:flex;
+
+}
+
+/* Modal Box */
+
+.modal-content{
+
+    width:100%;
+
+    max-width:520px;
+
+    background:#fff;
+
+    border-radius:14px;
+
+    padding:25px;
+
+    animation:popup .25s ease;
+
+}
+
+/* Animation */
+
+@keyframes popup{
+
+    from{
+
+        transform:translateY(-20px);
+
+        opacity:0;
+
+    }
+
+    to{
+
+        transform:translateY(0);
+
+        opacity:1;
+
+    }
+
+}
+
+/* Header */
+
+.modal-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:25px;
+
+}
+
+.close-modal{
+
+    border:none;
+
+    background:none;
+
+    font-size:28px;
+
+    cursor:pointer;
+
+}
+
+/* Form */
+
+.form-group{
+
+    display:flex;
+
+    flex-direction:column;
+
+    margin-bottom:18px;
+
+}
+
+.form-group label{
+
+    margin-bottom:8px;
+
+    font-weight:600;
+
+}
+
+.form-group input,
+
+.form-group select{
+
+    padding:12px;
+
+    border:1px solid #ccc;
+
+    border-radius:8px;
+
+    font-size:15px;
+
+}
+
+.form-group input:focus,
+
+.form-group select:focus{
+
+    outline:none;
+
+    border-color:#215cff;
+
+}
+
+/* Footer */
+
+.modal-footer{
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:12px;
+
+    margin-top:20px;
+
+}
+
+.btn-save{
+
+    background:#215cff;
+
+    color:#fff;
+
+    border:none;
+
+    padding:12px 22px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+}
+
+.btn-cancel{
+
+    background:#ececec;
+
+    border:none;
+
+    padding:12px 22px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+}
+
+.error {
+    color: red;
+    font-size: 0.85rem;
+}
+
+/* ==========================
+   Tablet (768–1023px)
+========================== */
+
+@media (max-width:1023px){
+
+    .modal-content{
+
+        max-width:600px;
+
+        padding:22px;
+
+    }
+
+}
+
+/* ==========================
+   Mobile (320–767px)
+========================== */
+
+@media (max-width:767px){
+
+    .modal{
+
+        padding:15px;
+
+    }
+
+    .modal-content{
+
+        width:100%;
+
+        max-width:none;
+
+        border-radius:12px;
+
+        padding:18px;
+
+    }
+
+    .modal-header h2{
+
+        font-size:20px;
+
+    }
+
+    .modal-footer{
+
+        flex-direction:column;
+
+    }
+
+    .btn-save,
+
+    .btn-cancel{
+
+        width:100%;
+
+    }
+
+}
