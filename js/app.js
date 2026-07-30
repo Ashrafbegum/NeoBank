@@ -1,6 +1,7 @@
 import { createTransactionObject } from "./transaction.js";
 import { populateCategories,   handleFormSubmit } from "./utils.js";
 import { saveTransaction, renderTransactions, loadDataFromLocalStorage } from "../storage/localStorage.js";
+import { renderStatistics } from "./statistics-cards.js";
 
 const addTransactionBtn = document.getElementById("addTransactionBtn");
 const modal = document.getElementById("transactionModal");
@@ -18,6 +19,7 @@ cancelModalBtn.addEventListener("click", closeModal);
 function loadData() {
   console.log(loadDataFromLocalStorage());
   renderTransactions();
+  renderStatistics();
 }
 
   /* populate categories once*/
@@ -39,6 +41,7 @@ function onSubmit(event) {
 
     saveTransaction(transaction);
     renderTransactions();
+    renderStatistics();
 
     // reset the form
     form.reset();
