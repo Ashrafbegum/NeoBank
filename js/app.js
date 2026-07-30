@@ -1,6 +1,6 @@
 import { createTransactionObject } from "./transaction.js";
 import { populateCategories,   handleFormSubmit } from "./utils.js";
-import { saveTransaction, renderTransactions } from "../storage/localStorage.js";
+import { saveTransaction, renderTransactions, loadDataFromLocalStorage } from "../storage/localStorage.js";
 
 const addTransactionBtn = document.getElementById("addTransactionBtn");
 const modal = document.getElementById("transactionModal");
@@ -9,10 +9,16 @@ const closeModalMark = document.getElementById("closeModal");
 const cancelModalBtn = document.getElementById("cancelModal");
 
 /* Attach listeners */
+document.addEventListener("DOMContentLoaded", loadData);
 addTransactionBtn.addEventListener("click", addTransaction);
 form.addEventListener("submit", onSubmit);
 closeModalMark.addEventListener("click", closeModal);
 cancelModalBtn.addEventListener("click", closeModal);
+
+function loadData() {
+  console.log(loadDataFromLocalStorage());
+  renderTransactions();
+}
 
   /* populate categories once*/
   populateCategories();
@@ -36,9 +42,7 @@ function onSubmit(event) {
 
     // reset the form
     form.reset();
-
     closeModal();
-
 }
 
 function closeModal() {
