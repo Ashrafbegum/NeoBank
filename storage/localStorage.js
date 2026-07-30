@@ -1,4 +1,4 @@
-let transactionHistory =  [];
+export let transactionHistory =  [];
 
 export function loadDataFromLocalStorage() {
     transactionHistory = JSON.parse(localStorage.getItem("Transaction-History")) || [];
