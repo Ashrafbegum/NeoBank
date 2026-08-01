@@ -7,12 +7,13 @@ import {
 import { renderStatistics } from "./statistics-cards.js";
 import {
   saveTransaction,
-  renderTransactions,
   loadDataFromLocalStorage,
 } from "../storage/localStorage.js";
+import { renderTransactions } from "../ui/renderTransactions.js";
 import { createTransactionObject } from "./transaction.js";
 import { openModal, closeModal } from "./modal.js";
-import { handleDelete } from "./delete.js";
+import { handleDelete } from "./transactions/delete.js";
+import { handleSearch } from "./transactions/search.js";
 
 const transactionModal = document.getElementById("transactionModal");
 const modal = document.getElementById("modal");
@@ -38,6 +39,9 @@ const actionBtns = document.querySelectorAll("[data-action]");
 
  const transactionTable = document.getElementById("transactionTable");
 
+ const searchInput = document.getElementById("searchInput");
+ 
+
 /* Attach listeners */
 document.addEventListener("DOMContentLoaded", loadData);
 
@@ -60,7 +64,10 @@ cancelModalBtn.addEventListener("click", (event) =>
   resetAndCloseModal(modal, form, "other-actions")
 );
 
+/* This listener required to handle delete operation */
 transactionTable.addEventListener("click", handleDelete);
+
+searchInput.addEventListener("input", handleSearch);
 
 function loadData() {
   loadDataFromLocalStorage();
@@ -81,12 +88,13 @@ actionBtns.forEach((button) => {
  
     switch (action) {
       case "deposit":
+        /* define data-action attribute on form dynamically to get action value in form submit handler */
         form.dataset.action = "deposit";
         updateCategories("income");
-        
+
         modalHeading.textContent = "Deposit Form";
 
-        modalSubmitBtn.textContent = "Deposit"; 
+        modalSubmitBtn.textContent = "Deposit";
         openModal(modal);
 
         break;
@@ -98,7 +106,7 @@ actionBtns.forEach((button) => {
         modalHeading.textContent = "Withdraw Form";
 
         modalSubmitBtn.textContent = "Withdraw";
-        
+
         openModal(modal);
         break;
 
@@ -109,7 +117,7 @@ actionBtns.forEach((button) => {
         modalHeading.textContent = "Transfer Form";
 
         modalSubmitBtn.textContent = "Transfer";
-        
+
         openModal(modal);
         break;
 
