@@ -1,5 +1,5 @@
 const categoryMap = {
-  Income: [
+  income: [
     "Salary",
     "Bonus",
     "Freelance",
@@ -10,7 +10,7 @@ const categoryMap = {
     "Other Income",
   ],
 
-  Expense: [
+  expense: [
     "Groceries",
     "Rent",
     "Utilities",
@@ -23,7 +23,7 @@ const categoryMap = {
     "Other Expense",
   ],
 
-  Transfer: [
+  transfer: [
     "Savings",
     "Checking",
     "Credit Card Payment",
@@ -33,109 +33,178 @@ const categoryMap = {
 };
 
 export function populateCategories() {
-  const typeSelect = document.getElementById("type");
+  const typeSelect = document.getElementById("transactionType");
 
-  typeSelect.addEventListener("change", updateCategories);
-
+  typeSelect.addEventListener("change", () => updateCategories("addTransaction"));
 }
 
-function updateCategories() {
-     const typeSelect = document.getElementById("type");
+export function updateCategories(action) {
+  let typeSelect = "";
+  let categorySelect = "";
+  let categories = [];
+  if(action === "addTransaction") {
+      typeSelect = document.getElementById("transactionType");
 
-     const categorySelect = document.getElementById("category");
+     categorySelect = document.getElementById("transactionCategory");
 
      /* update categories for the selected type */
-     const categories = categoryMap[typeSelect.value] || null;
+    categories = categoryMap[typeSelect.value] || [];
+  }
 
-      /* Remove old select category options , if any */
-      categorySelect.textContent = "";
-      categorySelect.innerHTML = `<option value="">Select Category</option>`;
+  else {
+      /* update categories for the type: deposit/withdraw/transfer */
+     categorySelect = document.getElementById("category");  
+    categories = categoryMap[action] || [];
+  }
 
-      /* Create category options for the selected type */
-      categories.forEach((categoryName) => {
-      const option = document.createElement("option");
-      option.textContent = categoryName;
-      categorySelect.appendChild(option);
-      });
+  /* Remove old select category options , if any */
+  categorySelect.textContent = "";
+  categorySelect.innerHTML = `<option value="">Select Category</option>`;
+
+  /* Create category options for the selected type */
+  categories.forEach((categoryName) => {
+    const option = document.createElement("option");
+    option.textContent = categoryName;
+    categorySelect.appendChild(option);
+  });
 }
 
-export function handleFormSubmit(event) {
-
+export function handleFormSubmit(event, action) {
+  
   /* Prevent default behaviour of the browser */
   event.preventDefault();
 
-  const formData = getFormData();
+  switch (action) {
+    case "deposit": 
+    case "withdraw":
+    case "transfer": {
+      const formData = getFormData(action);
 
-  const isErrors = validateForm(formData);
+      const errors = validateForm(formData, action);
 
-  /* check if isErrors object has properties */
-  if(Object.keys(isErrors).length > 0) {
-    displayErrors(isErrors);
-    return null;
+      const hasErrors = checkErrors(errors, action);
+
+      if (hasErrors)
+         return null;
+
+      return formData;
+    }
+
+    case "addTransaction": {
+      const formData = getFormData(action);
+
+      const errors = validateForm(formData, action);
+
+      const hasErrors = checkErrors(errors, action);
+
+      if (hasErrors) 
+        return null;
+
+      return formData;
+    }
+    default:
+      console.error(`Unknown action: ${action}`);
+  }
+}
+
+function getFormData(action) {
+  let value = "";
+  if (action === "addTransaction") {
+    return {
+      title: document.getElementById("transactionTitle").value,
+      amount: Number(document.getElementById("transactionAmount").value),
+      type: document.getElementById("transactionType").value,
+      category: document.getElementById("transactionCategory").value,
+    };
   }
 
-  return formData;
-};
-
-function getFormData() {
-  const titleInput = document.getElementById("title");
-  const amountInput = document.getElementById("amount");
-  const typeSelect = document.getElementById("type");
-  const categorySelect = document.getElementById("category");
-
-  const title = titleInput.value;
-  const amount = Number(amountInput.value);
-  const type = typeSelect.value;
-  const category = categorySelect.value;
+  if(action === "deposit")
+      value = "income";
+  else if (action === "withdraw")
+      value = "expense";
+  else
+      value = "transfer";
 
   return {
-     title,
-     amount,
-     type,
-     category
+    title: document.getElementById("title").value,
+    amount: Number(document.getElementById("amount").value),
+    type: value,
+    category: document.getElementById("category").value,
   };
 }
 
- function validateForm(formData) {
+function validateForm(formData, action) {
   const errors = {};
-  
-  if(formData.title.trim() === "")
-    errors.title = "Please enter the title";
 
-  if(formData.amount <= 0)
-    errors.amount = "Amount must be greater than zero";
+  if (formData.title.trim() === "") errors.title = "Please enter the title";
 
-  if(formData.type === "")
+  if (formData.amount <= 0) errors.amount = "Amount must be greater than zero";
+
+  if (formData.category === "") errors.category = "Please select the category";
+
+  if (action === "addTransaction" && formData.type === "")
     errors.type = "Please select the type";
-
-  if(formData.category === "")
-    errors.category = "Please select the category";
 
   /* return errors object */
   return errors;
-};
+}
 
-function displayErrors(errors) {
-  clearErrors();
-
-  if(errors.title) {
-     document.getElementById("titleError").textContent = errors.title;
+function checkErrors(errors, action) {
+  /* check if isErrors object has properties */
+  if (Object.keys(errors).length > 0) {
+    displayErrors(errors, action);
+    return true;
   }
 
-  if (errors.amount) 
-     document.getElementById("amountError").textContent = errors.amount;
+  clearErrors(action);
 
-  if (errors.type)
-      document.getElementById("typeError").textContent = errors.type;
+  return false;
+}
+
+function displayErrors(errors, action) {
+  clearErrors(action);
+
+  if (action === "addTransaction") {
+    if (errors.title)
+      document.getElementById("transactionTitleError").textContent =
+        errors.title;
+
+    if (errors.amount)
+      document.getElementById("transactionAmountError").textContent =
+        errors.amount;
+
+    if (errors.type)
+      document.getElementById("transactionTypeError").textContent = errors.type;
+
+    if (errors.category)
+      document.getElementById("transactionCategoryError").textContent =
+        errors.category;
+
+    return;
+  }
+
+  if (errors.title)
+    document.getElementById("titleError").textContent = errors.title;
+
+  if (errors.amount)
+    document.getElementById("amountError").textContent = errors.amount;
 
   if (errors.category)
-      document.getElementById("categoryError").textContent = errors.category;
-};
+    document.getElementById("categoryError").textContent = errors.category;
+}
 
-function clearErrors() {
+export function clearErrors(action) {
+  
+  if (action === "addTransaction") {
+    document.getElementById("transactionTitleError").textContent = "";
+    document.getElementById("transactionAmountError").textContent = "";
+    document.getElementById("transactionTypeError").textContent = "";
+    document.getElementById("transactionCategoryError").textContent = "";
+
+    return;
+  }
+
   document.getElementById("titleError").textContent = "";
   document.getElementById("amountError").textContent = "";
-  document.getElementById("typeError").textContent = "";
   document.getElementById("categoryError").textContent = "";
-};
-
+}

@@ -12,6 +12,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 <link rel="stylesheet" href="https://cloudflare.com">
 
 <link rel="stylesheet" href="./assets/css/style.css">
+
 <link rel="stylesheet" href="./assets/css/modal.css">
 
 </head>
@@ -80,10 +81,15 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
         <section class="actions">
 
-            <button>Deposit</button>
-            <button>Withdraw</button>
-            <button>Transfer</button>
-            <button id="addTransactionBtn">Add Transaction</button>
+            <!-- Using dataset property, kebab-case strinags are automatically converted to camelCase, e.g., add-transaction becomes addTransaction)
+ -->
+            <button id="depositBtn" data-action="deposit">Deposit</button>
+
+            <button id="withdrawBtn" data-action="withdraw">Withdraw</button>
+
+            <button id="transferBtn" data-action="transfer">Transfer</button>
+
+            <button id="addTransactionBtn" data-action ="add-transaction">Add Transaction</button>
 
         </section>
 
@@ -199,7 +205,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 </div>
 
-    <!-- Add Transaction Modal -->
+<!-- ======= Transaction Modal ===========-->
 
 <div class="modal" id="transactionModal">
 
@@ -211,7 +217,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
             <button
                 class="close-modal"
-                id="closeModal">
+                id="transactionCloseModal">
                 &times;
             </button>
 
@@ -225,12 +231,12 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
                 <input
                     type="text"
-                    id="title"
-                    placeholder="Transaction title"
+                    id="transactionTitle"
+                    placeholder="e.g. Salary"
                     required
                      />
                    
-                <span id="titleError" class="error"></span>
+                <span id="transactionTitleError" class="error"></span>
 
             </div>
 
@@ -240,14 +246,14 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
                 <input
                     type="number"
-                    id="amount"
-                    min="1"
-                    step="1"
-                    placeholder="Amount"
+                    id="transactionAmount"
+                    min="0.01"
+                    step="0.01"
+                    placeholder="1.00"
                     required
                      />
                     
-                <span id="amountError" class="error"></span>
+                <span id="transactionAmountError" class="error"></span>
     
             </div>
 
@@ -255,19 +261,19 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
                 <label for="type">Transaction Type</label>
 
-                <select id="type" required>
+                <select id="transactionType" required>
 
                     <option value="">Select Type</option>
 
-                    <option value="Income">Income</option>
+                    <option value="income">Income</option>
 
-                    <option value="Expense">Expense</option>
+                    <option value="expense">Expense</option>
 
-                    <option value="Transfer">Transfer</option>
+                    <option value="transfer">Transfer</option>
 
                 </select>
 
-                <span id="typeError" class="error"></span>
+                <span id="transactionTypeError" class="error"></span>
 
             </div>
 
@@ -275,13 +281,13 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
                 <label for="category">Category</label>
 
-                <select id="category" required>
+                <select id="transactionCategory" required>
 
                     <option value="">Select Category</option>
 
                 </select>
                              
-                <span id="categoryError" class="error"></span>
+                <span id="transactionCategoryError" class="error"></span>
 
             </div>
 
@@ -290,7 +296,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
                 <button
                     type="button"
                     class="btn-cancel"
-                    id="cancelModal">
+                    id="transactionCancelModal">
                     Cancel
                 </button>
 
@@ -306,6 +312,85 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
     </div>
 
+</div>
+
+
+<!-- ========== Common Modal for Deposit, Withdraw and Transfer ========== -->
+
+<div class="modal" id="modal" >
+  
+    <div class="modal-content">
+
+    <div class="modal-header">
+     
+      <h2 id="modalHeading"></h2>
+      
+      <button class="close-modal" id="closeModal">
+        &times;
+      </button>
+
+    </div>
+
+    <form id="form">
+
+      <div class="form-group">
+        
+        <label for="title">Title</label>
+        
+        <input
+          type="text"
+          id="title"
+          placeholder="e.g. Salary"
+          required
+        />
+
+        <span id="titleError" class="error"></span>
+
+      </div>
+
+      <div class="form-group">
+        <label for="amount">Amount</label>
+
+        <input
+          type="number"
+          id="amount"
+          min="0.01"
+          step="0.01"
+          placeholder="1.00"
+          required
+        />
+
+        <span id="amountError" class="error"></span>
+      </div>
+
+      <div class="form-group">
+        <label for="category">Category</label>
+
+        <select id="category" required>
+          <option value="">Select Category</option>
+          
+        </select>
+
+        <span id="categoryError" class="error"></span>
+
+      </div>
+
+      <div class="modal-footer">
+        <button
+            type="button" 
+            class="btn-cancel"
+            id="cancelModal">
+          Cancel
+        </button>
+
+        <button type="submit" class="btn-save" id="modalSubmitBtn">
+          Save
+        </button>
+      </div>
+
+    </form>
+
+  </div>
 </div>
 
 <script  type="module" src="./js/app.js"></script>

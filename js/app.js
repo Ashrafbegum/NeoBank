@@ -1,54 +1,153 @@
-import { createTransactionObject } from "./transaction.js";
-import { populateCategories,   handleFormSubmit } from "./utils.js";
-import { saveTransaction, renderTransactions, loadDataFromLocalStorage } from "../storage/localStorage.js";
+import {
+  populateCategories,
+  updateCategories,
+  handleFormSubmit,
+  clearErrors
+} from "./utils.js";
 import { renderStatistics } from "./statistics-cards.js";
+import {
+  saveTransaction,
+  renderTransactions,
+  loadDataFromLocalStorage,
+} from "../storage/localStorage.js";
+import { createTransactionObject } from "./transaction.js";
+import { openModal, closeModal } from "./modal.js";
 
-const addTransactionBtn = document.getElementById("addTransactionBtn");
-const modal = document.getElementById("transactionModal");
-const form = document.getElementById("transactionForm");
-const closeModalMark = document.getElementById("closeModal");
+const transactionModal = document.getElementById("transactionModal");
+const modal = document.getElementById("modal");
+
+const transactionCloseModalBtn = document.getElementById(
+  "transactionCloseModal",
+);
+const transactionCancelModalBtn = document.getElementById(
+  "transactionCancelModal",
+);
+
+const closeModalBtn = document.getElementById("closeModal");
 const cancelModalBtn = document.getElementById("cancelModal");
+
+const transactionForm = document.getElementById("transactionForm");
+const form = document.getElementById("form");
+
+const actionBtns = document.querySelectorAll("[data-action]");
+
+ const modalHeading = document.getElementById("modalHeading");
+
+ const modalSubmitBtn = document.getElementById("modalSubmitBtn");
 
 /* Attach listeners */
 document.addEventListener("DOMContentLoaded", loadData);
-addTransactionBtn.addEventListener("click", addTransaction);
+
 form.addEventListener("submit", onSubmit);
-closeModalMark.addEventListener("click", closeModal);
-cancelModalBtn.addEventListener("click", closeModal);
+transactionForm.addEventListener("submit", onSubmit);
+
+transactionCloseModalBtn.addEventListener("click", (event) =>
+  resetAndCloseModal(transactionModal, transactionForm, "addTransaction")
+);
+
+transactionCancelModalBtn.addEventListener("click", (event) =>
+  resetAndCloseModal(transactionModal, transactionForm, "addTransaction")
+);
+
+closeModalBtn.addEventListener("click", (event) =>
+  resetAndCloseModal(modal, form, "other-actions")
+);
+
+cancelModalBtn.addEventListener("click", (event) =>
+  resetAndCloseModal(modal, form, "other-actions")
+);
 
 function loadData() {
-  console.log(loadDataFromLocalStorage());
+  loadDataFromLocalStorage();
   renderTransactions();
   renderStatistics();
 }
 
-  /* populate categories once*/
-  populateCategories();
+/* populate categories once for add transacion action*/
+populateCategories();
 
-function addTransaction() {
+/* handle events on all buttons: deposit, withdraw, transfer and add transaction */
 
-    /* open modal */
-  modal.classList.add("show");
-}
+actionBtns.forEach((button) => {
+  button.addEventListener("click", () => {
+
+    // read dataset defined on buttons in index.html as data-action
+    const action = button.dataset.action;
+ 
+    switch (action) {
+      case "deposit":
+        form.dataset.action = "deposit";
+        updateCategories("income");
+        
+        modalHeading.textContent = "Deposit Form";
+
+        modalSubmitBtn.textContent = "Deposit"; 
+        openModal(modal);
+
+        break;
+
+      case "withdraw":
+        form.dataset.action = "withdraw";
+        updateCategories("expense");
+
+        modalHeading.textContent = "Withdraw Form";
+
+        modalSubmitBtn.textContent = "Withdraw";
+        
+        openModal(modal);
+        break;
+
+      case "transfer":
+        form.dataset.action = "transfer";
+        updateCategories("transfer");
+
+        modalHeading.textContent = "Transfer Form";
+
+        modalSubmitBtn.textContent = "Transfer";
+        
+        openModal(modal);
+        break;
+
+      case "add-transaction": // case must be as defined according to dataset; addTransaction is wrong
+        transactionForm.dataset.action = "addTransaction";
+        openModal(transactionModal);
+        break;
+
+      default:
+        console.error(`Unknown action: ${action}`);
+    }
+  });
+});
 
 function onSubmit(event) {
-    const formData = handleFormSubmit(event);
-    
-    if(formData === null)
-        return;
+  const form = event.currentTarget; // the form that fired submit
+  const action = form.dataset.action; // the action button
 
-    const transaction = createTransactionObject(formData);
+  const formData = handleFormSubmit(event, action);
 
-    saveTransaction(transaction);
-    renderTransactions();
-    renderStatistics();
+  if (formData === null) return;
 
-    // reset the form
-    form.reset();
-    closeModal();
+  const transaction = createTransactionObject(formData);
+
+  saveTransaction(transaction);
+  renderTransactions();
+  renderStatistics();
+
+  // reset the form
+  form.reset();
+
+  if (action === "addTransaction")
+    resetAndCloseModal(transactionModal, transactionForm, "addTransaction");
+  else // for other actions: deposit, withdraw, transfer
+    resetAndCloseModal(modal, form, "other-actions");
 }
 
-function closeModal() {
-  /* close modal */
-  modal.classList.remove("show");
+/* reset and close modal */
+function resetAndCloseModal(modal, form, action) {
+
+  form.reset();
+
+  clearErrors(action);
+
+  closeModal(modal);
 }

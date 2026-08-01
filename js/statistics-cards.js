@@ -7,9 +7,9 @@ import { transactionHistory } from "../storage/localStorage.js";
 
 export function calculateStatistics() {
    
-    const incomes = transactionHistory.filter((transaction) => transaction.type === "Income");
-    const expenses = transactionHistory.filter((transaction) => transaction.type === "Expense");
-    const transfers = transactionHistory.filter((transaction) => transaction.type === "Transfer");
+    const incomes = transactionHistory.filter((transaction) => transaction.type === "income");
+    const expenses = transactionHistory.filter((transaction) => transaction.type === "expense");
+    const transfers = transactionHistory.filter((transaction) => transaction.type === "transfer");
 
     totalIncome = incomes.reduce(
       (sum, transaction) => sum + transaction.amount,
