@@ -12,6 +12,7 @@ import {
 } from "../storage/localStorage.js";
 import { createTransactionObject } from "./transaction.js";
 import { openModal, closeModal } from "./modal.js";
+import { handleDelete } from "./delete.js";
 
 const transactionModal = document.getElementById("transactionModal");
 const modal = document.getElementById("modal");
@@ -35,6 +36,8 @@ const actionBtns = document.querySelectorAll("[data-action]");
 
  const modalSubmitBtn = document.getElementById("modalSubmitBtn");
 
+ const transactionTable = document.getElementById("transactionTable");
+
 /* Attach listeners */
 document.addEventListener("DOMContentLoaded", loadData);
 
@@ -56,6 +59,8 @@ closeModalBtn.addEventListener("click", (event) =>
 cancelModalBtn.addEventListener("click", (event) =>
   resetAndCloseModal(modal, form, "other-actions")
 );
+
+transactionTable.addEventListener("click", handleDelete);
 
 function loadData() {
   loadDataFromLocalStorage();
