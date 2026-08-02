@@ -14,6 +14,7 @@ import { createTransactionObject } from "./transaction.js";
 import { openModal, closeModal } from "./modal.js";
 import { handleDelete } from "./transactions/delete.js";
 import { handleSearch } from "./transactions/search.js";
+import { handleSort } from "./transactions/sort.js";
 
 const transactionModal = document.getElementById("transactionModal");
 const modal = document.getElementById("modal");
@@ -40,7 +41,8 @@ const actionBtns = document.querySelectorAll("[data-action]");
  const transactionTable = document.getElementById("transactionTable");
 
  const searchInput = document.getElementById("searchInput");
- 
+
+ const sortSelect = document.getElementById("sortSelect");
 
 /* Attach listeners */
 document.addEventListener("DOMContentLoaded", loadData);
@@ -70,10 +72,13 @@ transactionTable.addEventListener("click", handleDelete);
 /* Fires instantly on every character keystroke, text deletion, or mouse paste */
 searchInput.addEventListener("input", handleSearch);
 
+sortSelect.addEventListener("change", handleSort);
+
 function loadData() {
   loadDataFromLocalStorage();
   renderTransactions();
   renderStatistics();
+  handleSort();
 }
 
 /* populate categories once for add transacion action*/

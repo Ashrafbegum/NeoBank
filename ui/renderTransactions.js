@@ -21,12 +21,14 @@ export function renderTransactions(transactions = transactionHistory) {
   }
 
   transactions.forEach((transaction) => {
+    const formattedDate = formatDate(transaction.date);
+    
     const newRow = document.createElement("tr");
 
     newRow.innerHTML = `
                 <td>${transaction.title}</td>
                 <td>${transaction.category}</td>
-                <td>${transaction.date}</td>
+                <td>${formattedDate}</td>
                 <td>${transaction.amount}</td>
                 <td>
                     <button type="button" id="deleteBtn" data-id=${transaction.id} class="delete-btn">
@@ -36,4 +38,11 @@ export function renderTransactions(transactions = transactionHistory) {
         `;
     tbody.appendChild(newRow);
   });
+}
+
+function formatDate(date) {
+    /* Format date since objects in LoaclStorage are stored as JSON Strings */
+    const formattedDate = new Date(date).toLocaleDateString("en-GB");
+
+    return(formattedDate);
 }
