@@ -168,6 +168,18 @@ th{
 background:#fafafa;
 }
 
+.empty-message {
+  padding: 2rem;
+  text-align: center;
+  background-color: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  border-radius: 12px;
+  color: #475569;
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
 /* Charts */
 
 .charts{

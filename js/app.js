@@ -67,6 +67,7 @@ cancelModalBtn.addEventListener("click", (event) =>
 /* This listener required to handle delete operation */
 transactionTable.addEventListener("click", handleDelete);
 
+/* Fires instantly on every character keystroke, text deletion, or mouse paste */
 searchInput.addEventListener("input", handleSearch);
 
 function loadData() {
