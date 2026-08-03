@@ -102,8 +102,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
             type="text" id="searchInput"
             placeholder="Search transactions">
 
-            <select>
-                <option>All</option>
+            <select id="filterSelect">
+                <option selected>All</option>
                 <option>Income</option>
                 <option>Expense</option>
                 <option>Transfer</option>
@@ -130,6 +130,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
                 <tr>
 
                     <th>Title</th>
+                    <th>Type</th>
                     <th>Category</th>
                     <th>Date</th>
                     <th>Amount</th>
