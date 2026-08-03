@@ -29,6 +29,5 @@ export function handleSort() {
 
     }
    
-    console.log(sortedTransactions);
     renderTransactions(sortedTransactions);
 }

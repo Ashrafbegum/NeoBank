@@ -27,6 +27,7 @@ export function renderTransactions(transactions = transactionHistory) {
 
     newRow.innerHTML = `
                 <td>${transaction.title}</td>
+                <td>${transaction.type}</td>
                 <td>${transaction.category}</td>
                 <td>${formattedDate}</td>
                 <td>${transaction.amount}</td>
