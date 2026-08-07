@@ -22,12 +22,13 @@ export function renderTransactions(transactions = transactionHistory) {
 
   transactions.forEach((transaction) => {
     const formattedDate = formatDate(transaction.date);
-    
+    const formattedType = formatType(transaction.type);
+
     const newRow = document.createElement("tr");
 
     newRow.innerHTML = `
                 <td>${transaction.title}</td>
-                <td>${transaction.type}</td>
+                <td>${formattedType}</td>
                 <td>${transaction.category}</td>
                 <td>${formattedDate}</td>
                 <td>${transaction.amount}</td>
@@ -42,8 +43,13 @@ export function renderTransactions(transactions = transactionHistory) {
 }
 
 function formatDate(date) {
-    /* Format date since objects in LoaclStorage are stored as JSON Strings */
-    const formattedDate = new Date(date).toLocaleDateString("en-GB");
+  /* Format date since objects in LoaclStorage are stored as JSON Strings */
+  const formattedDate = new Date(date).toLocaleDateString("en-GB");
 
-    return(formattedDate);
+  return formattedDate;
+}
+
+function formatType(type) {
+  //Capitalize the 1st letter of type before displaying
+  return type.charAt(0).toUpperCase() + type.slice(1);
 }

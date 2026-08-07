@@ -1,9 +1,9 @@
 class Transaction {
-   constructor ( title, amount, type, category, date)   {
+   constructor ( title, amount, type, category)   {
     this.id = crypto.randomUUID();
     this.title = title,
     this.amount = amount,
-    this.type = type,
+    this.type = type.toLowerCase(), 
     this.category = category,
     this.date = new Date();
     }

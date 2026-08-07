@@ -16,8 +16,8 @@ export function saveTransaction(transaction) {
 
 export function deleteTransaction(id) {
     const index = transactionHistory.findIndex(transaction => transaction.id === id);
-    if( index > -1) {
-        transactionHistory.splice(index, 1);
+    if( index > -1) {  // Means transaction found
+        transactionHistory.splice(index, 1);  // delete transaction
     }
             saveDataToLocalStorage();
             renderTransactions();
@@ -32,6 +32,7 @@ export function renderTransactions() {
 
     newRow.innerHTML = `
                 <td>${transaction.title}</td>
+                <td>${transaction.type}</td>
                 <td>${transaction.category}</td>
                 <td>${transaction.date}</td>
                 <td>${transaction.amount}</td>
