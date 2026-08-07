@@ -108,7 +108,7 @@ export function handleFormSubmit(event, action) {
 }
 
 function getFormData(action) {
-  let value = "";
+  let typeValue = "";
   if (action === "addTransaction") {
     return {
       title: document.getElementById("transactionTitle").value,
@@ -119,16 +119,16 @@ function getFormData(action) {
   }
 
   if(action === "deposit")
-      value = "income";
+      typeValue = "income";
   else if (action === "withdraw")
-      value = "expense";
+      typeValue = "expense";
   else
-      value = "transfer";
+      typeValue = "transfer";
 
   return {
     title: document.getElementById("title").value,
     amount: Number(document.getElementById("amount").value),
-    type: value,
+    type: typeValue,
     category: document.getElementById("category").value,
   };
 }

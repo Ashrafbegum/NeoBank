@@ -16,6 +16,7 @@ import { handleDelete } from "./transactions/delete.js";
 import { handleSearch } from "./transactions/search.js";
 import { handleSort } from "./transactions/sort.js";
 import { handleFilter } from "./transactions/filter.js";
+import { updateView } from "./transactions/updateView.js";
 
 const transactionModal = document.getElementById("transactionModal");
 const modal = document.getElementById("modal");
@@ -79,10 +80,8 @@ filterSelect.addEventListener("change", handleFilter);
 
 function loadData() {
   loadDataFromLocalStorage();
-  renderTransactions();
+  updateView();
   renderStatistics();
-  handleSort();
-  handleFilter();
 }
 
 /* populate categories once for add transacion action*/
