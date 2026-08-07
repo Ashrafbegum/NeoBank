@@ -9,13 +9,6 @@ export function calculateStatistics() {
    
     const incomes = transactionHistory.filter((transaction) => transaction.type === "income");
     const expenses = transactionHistory.filter((transaction) => transaction.type === "expense");
-    
-    const transfersIn = transactionHistory.filter((transaction) => transaction.type === "transfer" && transaction.category === "Savings");
-    const transfersOut = transactionHistory.filter(
-      (transaction) => transaction.type === "transfer" &&
-        (transaction.category === "Checking" ||
-          transaction.category === "Credit Card Payment" ||
-          transaction.category === "External Transfer"));
 
     const transfersIn = transactionHistory.filter(
       (transaction) =>
