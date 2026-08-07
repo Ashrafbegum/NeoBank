@@ -9,7 +9,23 @@ export function calculateStatistics() {
    
     const incomes = transactionHistory.filter((transaction) => transaction.type === "income");
     const expenses = transactionHistory.filter((transaction) => transaction.type === "expense");
-    const transfers = transactionHistory.filter((transaction) => transaction.type === "transfer");
+    
+    const transfersIn = transactionHistory.filter((transaction) => transaction.type === "transfer" && transaction.category === "Savings");
+    const transfersOut = transactionHistory.filter(
+      (transaction) => transaction.type === "transfer" &&
+        (transaction.category === "Checking" ||
+          transaction.category === "Credit Card Payment" ||
+          transaction.category === "External Transfer"));
+
+    const transfersIn = transactionHistory.filter(
+      (transaction) =>
+        transaction.type === "transfer" && transaction.category === "Savings"
+    );
+    
+    const transfersOut = transactionHistory.filter(
+      (transaction) =>
+        transaction.type === "transfer" && transaction.category !== "Savings"
+    );      
 
     totalIncome = incomes.reduce(
       (sum, transaction) => sum + transaction.amount,
@@ -21,10 +37,17 @@ export function calculateStatistics() {
       0,
     );
 
-    totalSavings = transfers.reduce(
+    const savingsIn = transfersIn.reduce(
       (sum, transaction) => sum + transaction.amount,
       0,
     );
+
+     const savingsOut = transfersOut.reduce(
+       (sum, transaction) => sum + transaction.amount,
+       0,
+     );
+
+    totalSavings = savingsIn - savingsOut; 
 
     currentBalance = totalIncome - totalExpenses;
 
