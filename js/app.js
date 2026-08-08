@@ -2,7 +2,8 @@ import {
   populateCategories,
   updateCategories,
   handleFormSubmit,
-  clearErrors
+  clearErrors,
+  checkBalance,
 } from "./utils.js";
 import { renderStatistics } from "./statistics-cards.js";
 import {
@@ -46,6 +47,8 @@ const actionBtns = document.querySelectorAll("[data-action]");
 
  const sortSelect = document.getElementById("sortSelect");
 
+ const filterSelect = document.getElementById("filterSelect");
+
 /* Attach listeners */
 document.addEventListener("DOMContentLoaded", loadData);
 
@@ -68,16 +71,17 @@ cancelModalBtn.addEventListener("click", (event) =>
   resetAndCloseModal(modal, form, "other-actions")
 );
 
-/* This listener required to handle delete operation */
+/* Event listener to handle delete operation */
 transactionTable.addEventListener("click", handleDelete);
 
-/* Fires instantly on every character keystroke, text deletion, or mouse paste */
+/* Event listener to search input fires instantly on every character keystroke, text deletion, or mouse paste */
 searchInput.addEventListener("input", handleSearch);
 
 sortSelect.addEventListener("change", handleSort);
 
 filterSelect.addEventListener("change", handleFilter);
 
+/* Initial page load */
 function loadData() {
   loadDataFromLocalStorage();
   updateView();
@@ -146,8 +150,19 @@ function onSubmit(event) {
   const action = form.dataset.action; // the action button
 
   const formData = handleFormSubmit(event, action);
-
+  
   if (formData === null) return;
+
+  /* Prevent negative balance */
+  if(action !== "deposit") {
+    const result = checkBalance(formData);
+    if (!result) {
+      if (action === "addTransaction")
+        resetAndCloseModal(transactionModal, transactionForm, "addTransaction"); // for other actions: deposit, withdraw, transfer
+      else resetAndCloseModal(modal, form, "other-actions");
+      return;
+    }
+  }
 
   const transaction = createTransactionObject(formData);
 
