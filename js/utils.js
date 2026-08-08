@@ -1,3 +1,5 @@
+import { currentBalance, totalSavings } from "./statistics-cards.js";
+
 const categoryMap = {
   income: [
     "Salary",
@@ -81,7 +83,7 @@ export function handleFormSubmit(event, action) {
       const formData = getFormData(action);
 
       const errors = validateForm(formData, action);
-
+      
       const hasErrors = checkErrors(errors, action);
 
       if (hasErrors)
@@ -96,10 +98,10 @@ export function handleFormSubmit(event, action) {
       const errors = validateForm(formData, action);
 
       const hasErrors = checkErrors(errors, action);
-
+      
       if (hasErrors) 
         return null;
-
+      
       return formData;
     }
     default:
@@ -150,7 +152,7 @@ function validateForm(formData, action) {
 }
 
 function checkErrors(errors, action) {
-  /* check if isErrors object has properties */
+  /* check if errors object has properties */
   if (Object.keys(errors).length > 0) {
     displayErrors(errors, action);
     return true;
@@ -208,3 +210,22 @@ export function clearErrors(action) {
   document.getElementById("amountError").textContent = "";
   document.getElementById("categoryError").textContent = "";
 }
+
+export function checkBalance(formData) {
+  if (formData.type === "expense" && formData.amount > currentBalance) {
+    return false;
+  }
+
+  if (formData.type === "transfer") {
+    // Savings → Checking
+    if (formData.category === "Checking" && formData.amount > totalSavings)
+      return false;
+
+    // Checking → Savings / Credit Card / Internal Transfer / External Transfer
+    if ( formData.category !== "Checking" && formData.amount > currentBalance )
+      return false;
+  }
+
+  return true;
+}
+
