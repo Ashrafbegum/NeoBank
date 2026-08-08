@@ -18,6 +18,7 @@ import { handleSearch } from "./transactions/search.js";
 import { handleSort } from "./transactions/sort.js";
 import { handleFilter } from "./transactions/filter.js";
 import { updateView } from "./transactions/updateView.js";
+import { showToast, toastMessages } from "../ui/toast.js";
 
 const transactionModal = document.getElementById("transactionModal");
 const modal = document.getElementById("modal");
@@ -150,16 +151,18 @@ function onSubmit(event) {
   const action = form.dataset.action; // the action button
 
   const formData = handleFormSubmit(event, action);
-  
+
   if (formData === null) return;
 
   /* Prevent negative balance */
-  if(action !== "deposit") {
+  if (action !== "deposit") {
     const result = checkBalance(formData);
     if (!result) {
-      if (action === "addTransaction")
-        resetAndCloseModal(transactionModal, transactionForm, "addTransaction"); // for other actions: deposit, withdraw, transfer
+      if (action === "addTransaction") 
+        resetAndCloseModal(transactionModal, transactionForm, "addTransaction"); 
+      // for other actions: deposit, withdraw, transfer
       else resetAndCloseModal(modal, form, "other-actions");
+      showToast("insufficientAmount", "error");
       return;
     }
   }
@@ -167,6 +170,7 @@ function onSubmit(event) {
   const transaction = createTransactionObject(formData);
 
   saveTransaction(transaction);
+  showToast(action); // ✅
   renderTransactions();
   renderStatistics();
 
@@ -174,9 +178,8 @@ function onSubmit(event) {
   form.reset();
 
   if (action === "addTransaction")
-    resetAndCloseModal(transactionModal, transactionForm, "addTransaction");
-  else // for other actions: deposit, withdraw, transfer
-    resetAndCloseModal(modal, form, "other-actions");
+    resetAndCloseModal(transactionModal, transactionForm, "addTransaction"); // for other actions: deposit, withdraw, transfer
+  else resetAndCloseModal(modal, form, "other-actions");
 }
 
 /* reset and close modal */
