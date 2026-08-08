@@ -165,7 +165,8 @@ function checkErrors(errors, action) {
 
 function displayErrors(errors, action) {
   clearErrors(action);
-
+  
+  // Display errors for add transaction
   if (action === "addTransaction") {
     if (errors.title)
       document.getElementById("transactionTitleError").textContent =
@@ -185,6 +186,7 @@ function displayErrors(errors, action) {
     return;
   }
 
+  // Display errors for other transactions
   if (errors.title)
     document.getElementById("titleError").textContent = errors.title;
 

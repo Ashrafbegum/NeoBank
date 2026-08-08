@@ -1,4 +1,4 @@
-export const viewState = {
+export const filtersState = {
     searchTerm : "",
     filterType: "all",
     sortOrder: "Newest First"

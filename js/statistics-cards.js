@@ -1,4 +1,5 @@
 import { transactionHistory } from "../storage/localStorage.js";
+import { formatAmount } from "../utils/utils.js";
 
 export let currentBalance = 0;
 export let totalSavings = 0;
@@ -93,17 +94,3 @@ export function renderStatistics() {
   expense.textContent = formatAmount(totalExpenses);
   saving.textContent = formatAmount(totalSavings);
 }
-
-function formatAmount(amount) {
-  return currencyFormatter.format(amount);
-}
-
-// Australian English format - Amount comma separated
-const currencyFormatter = new Intl.NumberFormat("en-AU", {
-  style: "currency",
-  currency: "AUD",
-  currencyDisplay: "narrowSymbol",
-  minimumFractionDigits: 2,
-  maximumFractionDigits: 2,
-});
-

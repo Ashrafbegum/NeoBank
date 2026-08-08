@@ -4,7 +4,7 @@ import {
   handleFormSubmit,
   clearErrors,
   checkBalance,
-} from "./utils.js";
+} from "./form.js";
 import { renderStatistics } from "./statistics-cards.js";
 import {
   saveTransaction,
@@ -17,7 +17,7 @@ import { handleDelete } from "./transactions/delete.js";
 import { handleSearch } from "./transactions/search.js";
 import { handleSort } from "./transactions/sort.js";
 import { handleFilter } from "./transactions/filter.js";
-import { updateView } from "./transactions/updateView.js";
+import { updateFilters } from "./transactions/updateFilters.js";
 import { showToast, toastMessages } from "../ui/toast.js";
 
 const transactionModal = document.getElementById("transactionModal");
@@ -85,7 +85,7 @@ filterSelect.addEventListener("change", handleFilter);
 /* Initial page load */
 function loadData() {
   loadDataFromLocalStorage();
-  updateView();
+  updateFilters();
   renderStatistics();
 }
 
@@ -170,8 +170,8 @@ function onSubmit(event) {
   const transaction = createTransactionObject(formData);
 
   saveTransaction(transaction);
-  showToast(action); // ✅
-  renderTransactions();
+  showToast(action); 
+  updateFilters();
   renderStatistics();
 
   // reset the form

@@ -1,8 +1,8 @@
-import { updateView } from "./updateView.js";
-import { viewState } from "./viewState.js";
+import { updateFilters } from "./updateFilters.js";
+import { filtersState } from "./filtersState.js";
 
 export function handleSearch(event){
-  viewState.searchTerm = event.target.value.toLowerCase().trim();
+  filtersState.searchTerm = event.target.value.toLowerCase().trim();
 
-  updateView();
+  updateFilters();
 };

@@ -1,4 +1,5 @@
 import { transactionHistory } from "../storage/localStorage.js";
+import { formatType, formatDate } from "../utils/utils.js";
 
 /* default parameter is transactionHistory */
 export function renderTransactions(transactions = transactionHistory) {
@@ -40,16 +41,4 @@ export function renderTransactions(transactions = transactionHistory) {
         `;
     tbody.appendChild(newRow);
   });
-}
-
-function formatDate(date) {
-  /* Format date since objects in LoaclStorage are stored as JSON Strings */
-  const formattedDate = new Date(date).toLocaleDateString("en-GB");
-
-  return formattedDate;
-}
-
-function formatType(type) {
-  //Capitalize the 1st letter of type before displaying
-  return type.charAt(0).toUpperCase() + type.slice(1);
 }
