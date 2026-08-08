@@ -1,3 +1,5 @@
+import { renderTransactions } from "../ui/renderTransactions.js";
+
 export let transactionHistory = [];
 
 export function loadDataFromLocalStorage() {
@@ -22,27 +24,3 @@ export function deleteTransaction(id) {
             saveDataToLocalStorage();
             renderTransactions();
 };
-
-export function renderTransactions() {
-  const tbody = document.getElementById("transactionTable");
-
-  tbody.innerHTML = "";
-  transactionHistory.forEach((transaction) => {
-    const newRow = document.createElement("tr");
-
-    newRow.innerHTML = `
-                <td>${transaction.title}</td>
-                <td>${transaction.type}</td>
-                <td>${transaction.category}</td>
-                <td>${transaction.date}</td>
-                <td>${transaction.amount}</td>
-                <td>
-                    <button type="button" id="deleteBtn" data-id=${transaction.id} class="delete-btn">
-                        <i class="fa-regular fa-trash-can"></i>
-                    </button>
-                </td>
-        `;
-    tbody.appendChild(newRow);
-  });
-}
-

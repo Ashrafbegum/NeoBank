@@ -1,12 +1,10 @@
-import { updateView } from "./updateView.js";
-import { viewState } from "./viewState.js";
+import { updateFilters } from "./updateFilters.js";
+import { filtersState } from "./filtersState.js";
 
 export function handleSort() {
   const sortSelect = document.getElementById("sortSelect");
 
-  viewState.sortOrder = sortSelect.value;
-  console.log("sort order");
-  console.log(viewState.sortOrder);
+  filtersState.sortOrder = sortSelect.value;
 
-  updateView();
+  updateFilters();
 }

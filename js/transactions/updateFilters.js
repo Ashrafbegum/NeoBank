@@ -1,10 +1,10 @@
 import { transactionHistory } from "../../storage/localStorage.js";
 import { renderTransactions } from "../../ui/renderTransactions.js";
-import { viewState } from "./viewState.js";
+import { filtersState } from "./filtersState.js";
 
-export function updateView() {
+export function updateFilters() {
     let transactions = [...transactionHistory];
-    if (viewState.searchTerm !== "") {
+    if (filtersState.searchTerm !== "") {
 
         /* some() checks whether at least one element's title or caegory in the array satisfies a condition. */
         transactions = transactions.filter(
@@ -12,19 +12,19 @@ export function updateView() {
             transaction.title
                 .toLowerCase()
                 .split(" ")
-                .some((word) => word.startsWith(viewState.searchTerm)) ||
+                .some((word) => word.startsWith(filtersState.searchTerm)) ||
             transaction.category
                 .toLowerCase()
                 .split(" ")
-                .some((word) => word.startsWith(viewState.searchTerm)),
+                .some((word) => word.startsWith(filtersState.searchTerm)),
         );
     }
 
-    if(viewState.filterType !== "all") {
-            transactions = transactions.filter((transaction) => transaction.type === viewState.filterType);
+    if(filtersState.filterType !== "all") {
+            transactions = transactions.filter((transaction) => transaction.type === filtersState.filterType);
     }
 
-    switch (viewState.sortOrder) {
+    switch (filtersState.sortOrder) {
           case "Oldest First":
             /* sort() changes the transactions array */
             transactions.sort(
