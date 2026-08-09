@@ -115,6 +115,8 @@ display:flex;
 gap:15px;
 margin-bottom:25px;
 flex-wrap:wrap;
+justify-content: center;
+align-items: center;
 }
 
 .actions button{
@@ -133,6 +135,8 @@ display:flex;
 gap:15px;
 margin-bottom:20px;
 flex-wrap:wrap;
+justify-content: center;
+align-items: center;
 }
 
 .filters input,
