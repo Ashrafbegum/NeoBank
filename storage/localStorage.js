@@ -21,6 +21,6 @@ export function deleteTransaction(id) {
     if( index > -1) {  // Means transaction found
         transactionHistory.splice(index, 1);  // delete transaction
     }
-            saveDataToLocalStorage();
-            renderTransactions();
+    
+    saveDataToLocalStorage();
 };

@@ -19,6 +19,7 @@ import { handleSort } from "./transactions/sort.js";
 import { handleFilter } from "./transactions/filter.js";
 import { updateFilters } from "./transactions/updateFilters.js";
 import { showToast, toastMessages } from "../ui/toast.js";
+import { renderTopCategories } from "./reports/top-categories.js";
 
 const transactionModal = document.getElementById("transactionModal");
 const modal = document.getElementById("modal");
@@ -87,6 +88,7 @@ function loadData() {
   loadDataFromLocalStorage();
   updateFilters();
   renderStatistics();
+  renderTopCategories();
 }
 
 /* populate categories once for add transacion action*/
@@ -170,9 +172,10 @@ function onSubmit(event) {
   const transaction = createTransactionObject(formData);
 
   saveTransaction(transaction);
-  showToast(action); 
+  showToast(action, "success"); 
   updateFilters();
   renderStatistics();
+  renderTopCategories();
 
   // reset the form
   form.reset();
