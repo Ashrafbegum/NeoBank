@@ -1,6 +1,6 @@
 import { currentBalance, totalSavings } from "./statistics-cards.js";
 
-const categoryMap = {
+export const categoryMap = {
   income: [
     "Salary",
     "Bonus",
