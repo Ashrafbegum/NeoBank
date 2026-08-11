@@ -19,6 +19,7 @@ import { handleSort } from "./transactions/sort.js";
 import { handleFilter } from "./transactions/filter.js";
 import { updateFilters } from "./transactions/updateFilters.js";
 import { showToast, toastMessages } from "../ui/toast.js";
+import { renderSpendingOverview } from "./reports/spending-overview.js";
 import { renderIncomeExpenseChart } from "./reports/income-expense.js";
 import { renderTopCategories } from "./reports/top-categories.js";
 
@@ -89,6 +90,7 @@ function loadData() {
   loadDataFromLocalStorage();
   updateFilters();
   renderStatistics();
+  renderSpendingOverview();
   renderIncomeExpenseChart();
   renderTopCategories();
 }
