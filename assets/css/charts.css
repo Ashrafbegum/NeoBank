@@ -1,7 +1,6 @@
-/* =========================
-   Top Categories Chart
-   Desktop: 1024px+
-   ========================= */
+/* ===========================
+   Desktop First: 1024px+
+   =========================== */
 
 .chart-card {
     width: 100%;
@@ -15,16 +14,22 @@
     font-size: 1.1rem;
 }
 
-.categories-chart-container {
+.chart-container {
     position: relative;
     width: 100%;
     height: 300px;
 }
 
+.chart-container canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+}
 
-/* =========================
+
+/* ===========================
    Tablet: 768px - 1023px
-   ========================= */
+   =========================== */
 
 @media (min-width: 768px) and (max-width: 1023px) {
 
@@ -32,15 +37,15 @@
         padding: 18px;
     }
 
-    .categories-chart-container {
+    .chart-container {
         height: 280px;
     }
 }
 
 
-/* =========================
+/* ===========================
    Mobile: 320px - 767px
-   ========================= */
+   =========================== */
 
 @media (min-width: 320px) and (max-width: 767px) {
 
@@ -53,7 +58,7 @@
         margin-bottom: 15px;
     }
 
-    .categories-chart-container {
+    .chart-container {
         height: 250px;
     }
 }

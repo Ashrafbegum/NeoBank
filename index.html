@@ -17,6 +17,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 <link rel="stylesheet" href="./assets/css/toast.css">
 
+<link rel="stylesheet" href="./assets/css/charts.css">
+
+
 </head>
 <body>
 
@@ -171,8 +174,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
                 <h3>Income vs Expense</h3>
 
-                <div class="chart-placeholder">
-                    Bar Chart
+                <div class="chart-container">
+                    <canvas id="incomeExpenseChart"></canvas>
                 </div>
 
             </div>
@@ -187,7 +190,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
             <div class="chart-card">
                 <h3>Top Categories</h3>
 
-                <div class="categories-chart-container">
+                <div class="chart-container">
                     <canvas id="categoriesChart"></canvas>
                 </div>
             </div>

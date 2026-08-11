@@ -19,6 +19,7 @@ import { handleSort } from "./transactions/sort.js";
 import { handleFilter } from "./transactions/filter.js";
 import { updateFilters } from "./transactions/updateFilters.js";
 import { showToast, toastMessages } from "../ui/toast.js";
+import { renderIncomeExpenseChart } from "./reports/income-expense.js";
 import { renderTopCategories } from "./reports/top-categories.js";
 
 const transactionModal = document.getElementById("transactionModal");
@@ -88,6 +89,7 @@ function loadData() {
   loadDataFromLocalStorage();
   updateFilters();
   renderStatistics();
+  renderIncomeExpenseChart();
   renderTopCategories();
 }
 
@@ -175,6 +177,7 @@ function onSubmit(event) {
   showToast(action, "success"); 
   updateFilters();
   renderStatistics();
+  renderIncomeExpenseChart();
   renderTopCategories();
 
   // reset the form
