@@ -3,18 +3,7 @@ import { transactionHistory } from "../../storage/localStorage.js";
 let incomeExpenseChart = null;
 
 export function renderIncomeExpenseChart() {
-  const months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov",
     "Dec",
   ];
 

@@ -22,6 +22,7 @@ import { showToast, toastMessages } from "../ui/toast.js";
 import { renderSpendingOverview } from "./reports/spending-overview.js";
 import { renderIncomeExpenseChart } from "./reports/income-expense.js";
 import { renderTopCategories } from "./reports/top-categories.js";
+import { renderTransfersOverview } from "./reports/transfers-overview.js";
 
 const transactionModal = document.getElementById("transactionModal");
 const modal = document.getElementById("modal");
@@ -93,6 +94,7 @@ function loadData() {
   renderSpendingOverview();
   renderIncomeExpenseChart();
   renderTopCategories();
+  renderTransfersOverview();
 }
 
 /* populate categories once for add transacion action*/
@@ -181,6 +183,7 @@ function onSubmit(event) {
   renderStatistics();
   renderIncomeExpenseChart();
   renderTopCategories();
+  renderTransfersOverview();
 
   // reset the form
   form.reset();
