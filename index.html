@@ -34,7 +34,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         <header class="navbar">
 
             <div>
-                <h2>Hello, Jordan 👋</h2>
+                <h2>Hello,  
+                    <span id="userName"></span>
+                </h2>
                 <p>Welcome back to your financial command center.</p>
             </div>
 
@@ -45,7 +47,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
                 placeholder="Search anything..."
                 class="search">
 
-                <button class="logout-btn">
+                <button id="logoutBtn" class="logout-btn">
                     <i class="fa-solid fa-right-from-bracket"></i>
                     Logout
                 </button>
@@ -399,19 +401,14 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 <div id="toast" class="toast"></div>
 
-    <!-- Include Chart.js from CDN -->
+<!-- Application's entry point -->
+<script  type="module" src="./js/app.js"></script>
+
+    <!-- Include third-prty library Chart.js from CDN -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>  
 
 <!-- include datalabels plugin from Chart.js to use percentages in pie chart -->
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
-
-<script  type="module" src="./js/app.js"></script>
-
-<script type="module" src="./js/form.js"></script>
-
-<script type="module" src="./storage/localStorage.js"></script>
-
-<script type="module" src="./js/statistics-cards.js"></script>
 
 </body>
 </html>

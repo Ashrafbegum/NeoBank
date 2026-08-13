@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account | Neo Bank</title>
+
+    <link rel="stylesheet" href="./assets/css/auth.css">
+
+    <link rel="stylesheet" href="./assets/css/toast.css">
+
+</head>
+
+<body>
+
+    <main class="register-page">
+
+        <section class="register-card" aria-labelledby="register-title">
+
+            <div class="register-header">
+                <h1 id="register-title">Create Account</h1>
+                <p>Open your Neo Bank account</p>
+            </div>
+
+            <form id="registerForm" class="register-form">
+
+                <div class="form-group">
+                    <label for="username">User Name</label>
+
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        placeholder="Enter your user name"
+                        autocomplete="username"
+                        required
+                    >
+
+                    <small
+                        class="error-message"
+                        id="usernameError"
+                    ></small>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        autocomplete="email"
+                        required
+                    >
+
+                    <small
+                        class="error-message"
+                        id="emailError"
+                    ></small>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Create a password"
+                        autocomplete="new-password"
+                        required
+                    >
+
+                    <small
+                        class="error-message"
+                        id="passwordError"
+                    ></small>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        placeholder="Confirm your password"
+                        autocomplete="new-password"
+                        required
+                    >
+
+                    <small
+                        class="error-message"
+                        id="confirmPasswordError"
+                    ></small>
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="register-button"
+                >
+                    Create Account
+                </button>
+
+            </form>
+
+
+            <p class="register-footer">
+                Already have an account?
+                <a href="./login.html">Login</a>
+            </p>
+
+        </section>
+
+         <div id="toast" class="toast"></div>
+
+    </main>
+
+
+    <script
+        type="module"
+        src="./js/auth/register.js"
+    ></script>
+
+</body>
+</html>

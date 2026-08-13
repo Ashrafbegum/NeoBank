@@ -37,25 +37,25 @@ export const categoryMap = {
 export function populateCategories() {
   const typeSelect = document.getElementById("transactionType");
 
-  typeSelect.addEventListener("change", () => updateCategories("addTransaction"));
+  typeSelect.addEventListener("change", () =>
+    updateCategories("addTransaction"),
+  );
 }
 
 export function updateCategories(action) {
   let typeSelect = "";
   let categorySelect = "";
   let categories = [];
-  if(action === "addTransaction") {
-      typeSelect = document.getElementById("transactionType");
+  if (action === "addTransaction") {
+    typeSelect = document.getElementById("transactionType");
 
-     categorySelect = document.getElementById("transactionCategory");
+    categorySelect = document.getElementById("transactionCategory");
 
-     /* update categories for the selected type */
+    /* update categories for the selected type */
     categories = categoryMap[typeSelect.value] || [];
-  }
-
-  else {
-      /* update categories for the type: deposit/withdraw/transfer */
-     categorySelect = document.getElementById("category");  
+  } else {
+    /* update categories for the type: deposit/withdraw/transfer */
+    categorySelect = document.getElementById("category");
     categories = categoryMap[action] || [];
   }
 
@@ -72,22 +72,20 @@ export function updateCategories(action) {
 }
 
 export function handleFormSubmit(event, action) {
-  
   /* Prevent default behaviour of the browser */
   event.preventDefault();
 
   switch (action) {
-    case "deposit": 
+    case "deposit":
     case "withdraw":
     case "transfer": {
       const formData = getFormData(action);
 
       const errors = validateForm(formData, action);
-      
+
       const hasErrors = checkErrors(errors, action);
 
-      if (hasErrors)
-         return null;
+      if (hasErrors) return null;
 
       return formData;
     }
@@ -98,10 +96,9 @@ export function handleFormSubmit(event, action) {
       const errors = validateForm(formData, action);
 
       const hasErrors = checkErrors(errors, action);
-      
-      if (hasErrors) 
-        return null;
-      
+
+      if (hasErrors) return null;
+
       return formData;
     }
     default:
@@ -120,12 +117,9 @@ function getFormData(action) {
     };
   }
 
-  if(action === "deposit")
-      typeValue = "income";
-  else if (action === "withdraw")
-      typeValue = "expense";
-  else
-      typeValue = "transfer";
+  if (action === "deposit") typeValue = "income";
+  else if (action === "withdraw") typeValue = "expense";
+  else typeValue = "transfer";
 
   return {
     title: document.getElementById("title").value,
@@ -165,7 +159,7 @@ function checkErrors(errors, action) {
 
 function displayErrors(errors, action) {
   clearErrors(action);
-  
+
   // Display errors for add transaction
   if (action === "addTransaction") {
     if (errors.title)
@@ -198,7 +192,6 @@ function displayErrors(errors, action) {
 }
 
 export function clearErrors(action) {
-  
   if (action === "addTransaction") {
     document.getElementById("transactionTitleError").textContent = "";
     document.getElementById("transactionAmountError").textContent = "";
@@ -224,10 +217,9 @@ export function checkBalance(formData) {
       return false;
 
     // Checking → Savings / Credit Card / Internal Transfer / External Transfer
-    if ( formData.category !== "Checking" && formData.amount > currentBalance )
+    if (formData.category !== "Checking" && formData.amount > currentBalance)
       return false;
   }
 
   return true;
 }
-
