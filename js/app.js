@@ -23,6 +23,10 @@ import { renderSpendingOverview } from "./reports/spending-overview.js";
 import { renderIncomeExpenseChart } from "./reports/income-expense.js";
 import { renderTopCategories } from "./reports/top-categories.js";
 import { renderTransfersOverview } from "./reports/transfers-overview.js";
+import { getLoggedInId, getLoggedInUserById, loadUsersFromLocalStorage, logoutUser } from "../storage/userStorage.js";
+
+const userName = document.getElementById("userName");
+const logoutBtn = document.getElementById("logoutBtn");
 
 const transactionModal = document.getElementById("transactionModal");
 const modal = document.getElementById("modal");
@@ -57,6 +61,8 @@ const actionBtns = document.querySelectorAll("[data-action]");
 /* Attach listeners */
 document.addEventListener("DOMContentLoaded", loadData);
 
+logoutBtn.addEventListener("click", logout);
+
 form.addEventListener("submit", onSubmit);
 transactionForm.addEventListener("submit", onSubmit);
 
@@ -89,6 +95,8 @@ filterSelect.addEventListener("change", handleFilter);
 /* Initial page load */
 function loadData() {
   loadDataFromLocalStorage();
+  loadUsersFromLocalStorage();
+  displayUserName();
   updateFilters();
   renderStatistics();
   renderSpendingOverview();
@@ -201,4 +209,19 @@ function resetAndCloseModal(modal, form, action) {
   clearErrors(action);
 
   closeModal(modal);
+}
+ 
+function displayUserName(){
+  const loginId = getLoggedInId();
+  const loggedInUser = getLoggedInUserById(loginId);
+   if (!loggedInUser) {
+     console.log("No logged-in user found for ID:", loginId);
+     return;
+   }
+  userName.textContent = loggedInUser.userName;
+} 
+
+function logout() {
+  logoutUser();
+  window.location.replace("login.html");
 }

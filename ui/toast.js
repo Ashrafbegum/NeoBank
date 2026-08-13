@@ -5,6 +5,9 @@ export const toastMessages = {
   delete: "Transaction deleted successfully",
   addTransaction: "Transaction added successfully",
   insufficientAmount: "Insufficient amount",
+  register: "User is registered successfully",
+  login: "User is logged in successfully",
+  invalidCredentials: "Email or password is incorrect"
 };
 
 const toastTypes = ["success", "error"];
