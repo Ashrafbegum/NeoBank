@@ -24,6 +24,7 @@ import { renderIncomeExpenseChart } from "./reports/income-expense.js";
 import { renderTopCategories } from "./reports/top-categories.js";
 import { renderTransfersOverview } from "./reports/transfers-overview.js";
 import { getLoggedInId, getLoggedInUserById, loadUsersFromLocalStorage, logoutUser } from "../storage/userStorage.js";
+import { checkAuthentication } from "./auth/authForm.js";
 
 const userName = document.getElementById("userName");
 const logoutBtn = document.getElementById("logoutBtn");
@@ -94,6 +95,11 @@ filterSelect.addEventListener("change", handleFilter);
 
 /* Initial page load */
 function loadData() {
+  // Prevent index.html from loading withou user logged in 
+    if (!checkAuthentication()) {
+      return;
+    }
+
   loadDataFromLocalStorage();
   loadUsersFromLocalStorage();
   displayUserName();
